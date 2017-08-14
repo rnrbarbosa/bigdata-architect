@@ -14,7 +14,35 @@
 architecture for the API, the persistence system and the data model.
 
 
-# Proposed Solution
+## Solution
+
+### Rationale
+
+The challenges faced here are:
+* large volume of data ingestion in short interval of time
+* serve and filtered ingested data in real time
+* daily batch reporting
+
+### Implementation
+
+In order to ingest such large volume of data ingestion, one must move the data in a *_fast  and reliable way_*  from where it is originated, into a next layer where it can be processed in real time or in batch mode. 
+
+The common choice for this ingestion layer in BigData projects currently if *Apache Kafka*. Kafka allows to ingest data in a pure redundant, distributed and easily scalable manner.
+
+Regarding the consumption of the data one must decide on the architecture what will be *SINGLE SOURCE OF TRUTH* for the State of the application. This is an important decision which will distiguish the *real time* system from the *near-real time system*. 
+
+My choice is to use *EVENT SOURCING* as the application architecture. All state changes like data ingestion or data transformation would be stored as an immutable event data. 
+
+>*Immutable Data* is not new for obtaing data accuracy, where it is an old practice on *Accounting*, where to cancel a movement, you need to create another movement with opposite value.
+
+![Architecture](kstreams.png)
+
+Using this approach, all application or interfaces that require that update information will use the _Event Logs_ to create a materialized view to be queried, that can be a query or index the event in ElasticSearch for searches.
+
+Another pattern to apply to this scenario is to use *CQRS ("Command Query Responsability Segregation")*, with a twist of *still using still the *Event Store* as the place to Query* using real-time analytics like Kafka Streams or Spark Streams.
+
+Another characteristic of this approach is that any change of the *state* of the application comes solely from events, make events first-class citizen of the Architecture, which is completely always upt to date and highly distributed and scalable using Distirbuted Kafka.
+
 
 
 
