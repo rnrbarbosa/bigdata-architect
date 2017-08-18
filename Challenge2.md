@@ -15,7 +15,7 @@
 
 ## Rationale
 
-By using a loosed coupled architecture based on Kafka, and using Event Store for the *SINGLE SOURCE OF TRUTH* with immutable event data, all of the infered data are calculations that can be easily replaced by using *A|B Rolling Upgrade*.
+By using a loosed coupled architecture based on Kafka or AWS Kinesis, and using Event Store for the *SINGLE SOURCE OF TRUTH* with immutable event data, all of the infered data are calculations that can be easily replaced by using *A|B Rolling Upgrade*.
 
 ![](AB-Deployment.png)
 
