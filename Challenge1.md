@@ -32,7 +32,7 @@ The challenges faced here are:
 * In order to do the daily batch report one must use the materialized view of data on a permanent data store.
 
 
-The common choice for this ingestion layer in BigData projects currently if *Apache Kafka*. Kafka allows to ingest data in a pure redundant, distributed and easily scalable manner.
+The common choice for this ingestion layer in BigData projects currently is based *Apache Kafka*. Kafka allows to ingest data in a pure redundant, distributed and easily scalable manner. AWS Kinesis implements the same principles of Kafka and is the solution for Cloud-only services.
 
 Regarding the consumption of the data one must decide on the architecture what will be *Single Source of Truth* for the State of the application. This is an important decision which will distiguish the *real time* system from the *near-real time system*. 
 
@@ -54,15 +54,15 @@ All of the following explanations will be based on a single premise and ruling p
 
 Using this approach, all application or interfaces that require always up to date information will use the _Event Logs_ to create a *real-time materialized view* to be queried, that can be a query or index the event in ElasticSearch for searches.
 
-Another pattern to apply to this architecture is to use *CQRS ("Command Query Responsability Segregation")*, with a twist of *still using the *Event Store* as the *Application State* to queried using real-time analytics with Kafka Streams (this is the evolution that replaces the Apache Spark or Spark Storm for stream processing).
+Another pattern to apply to this architecture is to use *CQRS ("Command Query Responsability Segregation")*, with a twist of *still using the *Event Store* as the *Application State* to queried using real-time analytics with Kafka Streams or Kinesis Streaming Applications (this is the evolution that replaces the Apache Spark or Spark Storm for stream processing, by having the processing of the stream being applied *_in-stream_*).
 
-Another characteristic of this approach is that _*events* first-class citizen of the Architecture_, and any state update of the application comes solely from events,  which is completely always up to date and highly distributed and scalable using Distributed Kafka.
+Another characteristic of this approach is that _*events* first-class citizen of the Architecture_, and any state update of the application comes solely from events,  which is completely always up to date and highly distributed and scalable using Distributed Kafka or Kinesis.
 
 This architecture as all components and layers highly scalable, highly resilitent, loose coupled and allows *easy* the replacement of any component.
 
 ### Data Model
 
-For the data, the proposal is to start moving the Restful API to a more smart api based on *Graphql*.
+For the data, the proposal is to start moving the Restful API to a more smart api based on *Graphql*. Why? Because wit Restful API you cannot selectively request for only the needed fields and wen you correlate data between multpile data objects rest can be a nigtmare (it becames a )
 
 Instead of having multiple *dumb* rest endpoints, we can have a *smart* endpoint that can take in complex queries, and then massage the data output into whatever shape the client requests.
 
