@@ -43,6 +43,11 @@ Regarding the consumption of the data one must decide on the architecture what w
 
 My choice is to use *EVENT SOURCING* model as the *architecture*. All state changes like data ingestion or data transformation would be stored as an immutable event data. 
 
+All of the following explanations will be based on a single premise and ruling principle:
+
+> *Immutability is the Backbone of “Big Data”*
+>Functional Computation with Immutable Inputs. Failure and Restart Are Based on the Idempotent Nature of Functional Computation over Immutable Inputs.
+
 ![Architecture](kstreams.png)
 
 Using this approach, all application or interfaces that require always up to date information will use the _Event Logs_ to create a *real-time materialized view* to be queried, that can be a query or index the event in ElasticSearch for searches.
