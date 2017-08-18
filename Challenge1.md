@@ -39,6 +39,8 @@ Regarding the consumption of the data one must decide on the architecture what w
 
 >*Immutable Data* is not new for obtaing data accuracy, where it is an old practice on *Accounting*, where to correct a movement, you don't change the movement, you need to create another movement with opposite value.
 
+
+
 #### Proposed Architecture
 
 My choice is to use *EVENT SOURCING* model as the *architecture*. All state changes like data ingestion or data transformation would be stored as an immutable event data. 
